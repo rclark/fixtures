@@ -1,10 +1,56 @@
+<!--
+MIT License
+
+Copyright (c) 2019 Jeff Principe
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
 [![Go](https://github.com/rclark/fixtures/actions/workflows/go.yml/badge.svg)](https://github.com/rclark/fixtures/actions/workflows/go.yml)
 
 # fixtures
 
 A set of utilities for working with test fixtures in Go.
 
-```go
+<!--
+MIT License
+
+Copyright (c) 2019 Jeff Principe
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->```go
 import "github.com/rclark/fixtures"
 ```
 
@@ -13,6 +59,7 @@ import "github.com/rclark/fixtures"
 - [type Server](<#Server>)
   - [func NewServer\(opts ...ServerOption\) \*Server](<#NewServer>)
   - [func \(s Server\) Listen\(\) \(ServerData, func\(\)\)](<#Server.Listen>)
+  - [func \(s Server\) TestListen\(t \*testing.T\) ServerData](<#Server.TestListen>)
 - [type ServerData](<#ServerData>)
 - [type ServerOption](<#ServerOption>)
   - [func WithFixture\(urlPath, filePath string\) ServerOption](<#WithFixture>)
@@ -341,6 +388,15 @@ func (s Server) Listen() (ServerData, func())
 ```
 
 Listen starts the server and returns information about it. The caller must call the returned function to stop the server. If it can't find a port to listen on, or if the server closes unexpectedly, it will panic.
+
+<a name="Server.TestListen"></a>
+### func \(Server\) TestListen
+
+```go
+func (s Server) TestListen(t *testing.T) ServerData
+```
+
+TestListen starts the server and returns information about it. The server will be closed when the test ends. If it can't find a port to listen on, or if the server closes unexpectedly, it will fail the test.
 
 <a name="ServerData"></a>
 ## type ServerData
