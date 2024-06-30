@@ -6,7 +6,11 @@ init:
 	go install github.com/matm/gocov-html/cmd/gocov-html@latest
 
 doc:
-	gomarkdoc --output readme.md  --template-file file=templates/file.md --template-file package=templates/package.md .
+	gomarkdoc \
+		--output readme.md  \
+		--template-file file=templates/file.md \
+		--template-file package=templates/package.md \
+		.
 
 test:
 	gotestsum --format testname -- -coverprofile=coverage.out ./...

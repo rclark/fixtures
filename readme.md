@@ -66,7 +66,7 @@ func main() {
 	// it will always be directed to the server.
 	resp, err := info.Client.Get("https://just.made.this.up.com/data")
 	if err != nil {
-		panic(err)
+		log.Fatal("request should not error: ", err)
 	}
 	defer resp.Body.Close()
 
@@ -340,7 +340,7 @@ NewServer creates a new Server with the given options. Use WithFixture to add ro
 func (s Server) Listen() (ServerData, func())
 ```
 
-Listen starts the server and returns information about it. The caller must call the returned function to stop the server.
+Listen starts the server and returns information about it. The caller must call the returned function to stop the server. If it can't find a port to listen on, or if the server closes unexpectedly, it will panic.
 
 <a name="ServerData"></a>
 ## type ServerData

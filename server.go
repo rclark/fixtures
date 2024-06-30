@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"testing"
 )
 
 // Server is an HTTP server that serves static files.
@@ -90,13 +91,27 @@ type ServerData struct {
 }
 
 // Listen starts the server and returns information about it. The caller must
-// call the returned function to stop the server.
+// call the returned function to stop the server. If it can't find a port to
+// listen on, or if the server closes unexpectedly, it will panic.
 func (s Server) Listen() (ServerData, func()) {
+	return s.listen(func(err error) { panic(err) })
+}
+
+// TestListen starts the server and returns information about it. The server
+// will be closed when the test ends. If it can't find a port to listen on, or
+// if the server closes unexpectedly, it will fail the test.
+func (s Server) TestListen(t *testing.T) ServerData {
+	info, stop := s.listen(func(err error) { t.Fatal(err) })
+	t.Cleanup(stop)
+	return info
+}
+
+func (s Server) listen(errors func(error)) (ServerData, func()) {
 	server := &http.Server{Handler: s.mux}
 
 	listener, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
-		panic(err)
+		errors(err)
 	}
 
 	data := ServerData{Addr: listener.Addr().(*net.TCPAddr)}
@@ -114,7 +129,7 @@ func (s Server) Listen() (ServerData, func()) {
 
 	go func() {
 		if err := server.Serve(listener); err != nil && err != http.ErrServerClosed {
-			panic(err)
+			errors(err)
 		}
 	}()
 
