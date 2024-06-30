@@ -2,6 +2,8 @@
 
 # fixtures
 
+A set of utilities for working with test fixtures in Go.
+
 ```go
 import "github.com/rclark/fixtures"
 ```

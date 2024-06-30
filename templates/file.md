@@ -1,5 +1,9 @@
 [![Go](https://github.com/rclark/fixtures/actions/workflows/go.yml/badge.svg)](https://github.com/rclark/fixtures/actions/workflows/go.yml)
 
+# fixtures
+
+A set of utilities for working with test fixtures in Go.
+
 {{if .Header -}}
 	{{- .Header -}}
 	{{- spacer -}}
