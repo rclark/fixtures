@@ -6,7 +6,7 @@ init:
 	go install github.com/matm/gocov-html/cmd/gocov-html@latest
 
 doc:
-	gomarkdoc -o readme.md .
+	gomarkdoc --output readme.md --template-file file=readme.template .
 
 test:
 	gotestsum --format testname -- -coverprofile=coverage.out ./...
